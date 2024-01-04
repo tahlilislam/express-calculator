@@ -26,21 +26,21 @@ function calculateMode(numbers) {
     countMap.set(num, (countMap.get(num) || 0) + 1);
   });
 
-  let mode = null;
+  let modes = [];
   let maxCount = 0;
 
   // Find modes (values with the highest frequency)
   countMap.forEach((count, num) => {
     if (count > maxCount) {
-      mode = num;
+      modes = [num];
       maxCount = count;
-    } else if (count === maxCount && mode !== null) {
-      // If there are multiple modes with the same frequency, set mode to null
-      mode = null;
+    } else if (count === maxCount && !modes.includes(num)) {
+      // If there are multiple modes with the same frequency, add to modes array
+      modes.push(num);
     }
   });
 
-  return mode;
+    return maxCount === 1 ? null: modes.length === 1 ? modes[0] : modes;
 }
 
 module.exports = { calculateMean, calculateMedian, calculateMode };
